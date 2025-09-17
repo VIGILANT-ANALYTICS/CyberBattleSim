@@ -10,3 +10,4 @@ msbuild.log
 **/.nupkg/*
 **/.pkg/*
 **/packages/*
+.obsidian
