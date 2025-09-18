@@ -11,6 +11,7 @@ from . import agents
 from ._env.cyberbattle_env import AttackerGoal, DefenderGoal
 from .samples.chainpattern import chainpattern
 from .samples.toyctf import toy_ctf
+from .networks import simple_network
 from .samples.active_directory import generate_ad
 from .simulation import generate_network, model
 
@@ -27,6 +28,16 @@ def register(id: str, cyberbattle_env_identifiers: model.Identifiers, **kwargs):
     spec = EnvSpec(id, **kwargs)
     registry[id] = spec
 
+if "SimpleNetwork-v0" in registry:
+    del registry["SimpleNetwork-v0"]
+
+register(
+    id="SimpleNetwork-v0",
+    cyberbattle_env_identifiers=simple_network.ENV_IDENTIFIERS,
+    entry_point="cyberbattle._env.cyberbattle_simplenetwork:SimpleNetwork",
+    kwargs={"defender_agent": None, "attacker_goal": AttackerGoal(own_atleast_percent=1.0), "defender_goal": DefenderGoal(eviction=True)},
+    # max_episode_steps=2600,
+)
 
 if "CyberBattleToyCtf-v0" in registry:
     del registry["CyberBattleToyCtf-v0"]

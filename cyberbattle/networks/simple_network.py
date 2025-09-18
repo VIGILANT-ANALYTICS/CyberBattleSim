@@ -13,6 +13,7 @@ nodes = {
         firewall=m.FirewallConfiguration(incoming=default_allow_rules, outgoing=default_allow_rules),
         agent_installed=True,
         reimagable=False,
+        properties=["Win11"],
         value=0,
         vulnerabilities=dict(
             ReadSourceCode_LeakedNode = m.VulnerabilityInfo(
@@ -34,6 +35,7 @@ nodes = {
         firewall=m.FirewallConfiguration(incoming=default_allow_rules, outgoing=default_allow_rules),
         reimagable=False,
         value=100,
+        properties=["LinuxServer"],
         vulnerabilities=dict(
             WritableBackupScript = m.VulnerabilityInfo(
                 description="The backup script is writable and executed by root.",
@@ -55,6 +57,7 @@ nodes = {
         firewall=m.FirewallConfiguration(incoming=default_allow_rules, outgoing=default_allow_rules),
         reimagable=False,
         value=500,
+        properties=["WindowsServer"],
         vulnerabilities=dict(
             Remote_RDP_Exploit = m.VulnerabilityInfo(
                 description=("Using SYSTEM/root privileges on Backup_Server, the attacker can remotely exploit misconfigured RDP on Active_Directory to gain system privilages."),
@@ -67,10 +70,9 @@ nodes = {
 }
 
 global_vulnerability_library: Dict[VulnerabilityID, VulnerabilityInfo] = dict([])
-
+print(global_vulnerability_library)
 # Environment constants
 ENV_IDENTIFIERS = m.infer_constants_from_nodes(cast(Iterator[Tuple[NodeID, NodeInfo]], list(nodes.items())), global_vulnerability_library)
-
 
 def new_environment() -> m.Environment:
     return m.Environment(network=m.create_network(nodes), vulnerability_library=global_vulnerability_library, identifiers=ENV_IDENTIFIERS)
