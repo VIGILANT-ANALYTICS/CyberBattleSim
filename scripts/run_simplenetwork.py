@@ -29,23 +29,24 @@ def main() -> int:
 
     for i_episode in range(1):
         observation, _ = env.reset()
-        action_mask = env.compute_action_mask()
         total_reward = 0
+        # env.render()
         for t in range(500):
-            env.render()
-
+            action_mask = env.compute_action_mask()
+            # print(action_mask['remote_vulnerability'].any())
             # sample a valid action
             action = env.sample_valid_action()
             while not env.apply_mask(action, action_mask):
                 action = env.sample_valid_action()
 
-            print("action mask: " + str(action_mask))
+            # print("action mask: " + str(action_mask))
             print("action: " + str(action))
             observation, reward, done, truncated, info = env.step(action)
             action_mask = observation["action_mask"]
             total_reward = total_reward + reward
             # print(observation)
             print("total_reward=" + str(total_reward))
+            # env.render()
             if truncated:
                 print("Episode truncated after {} timesteps".format(t + 1))
                 break

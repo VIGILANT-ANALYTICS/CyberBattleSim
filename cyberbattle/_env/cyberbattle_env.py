@@ -646,6 +646,9 @@ class CyberBattleEnv(CyberBattleSpaceKind):
         remote_vulnerabilities_count = self.__bounds.remote_attacks_count
         port_count = self.__bounds.port_count
 
+        # print(f"Remote attack count: {remote_vulnerabilities_count}")
+        # print(f"Local attack count: {local_vulnerabilities_count}")
+        # print(f"Discovered nodes: {self.__discovered_nodes}")
         # Compute the vulnerability action bitmask
         #
         # The agent may attempt exploiting vulnerabilities
@@ -653,7 +656,7 @@ class CyberBattleEnv(CyberBattleSpaceKind):
         for source_node_id in self.__discovered_nodes:
             if self.__agent_owns_node(source_node_id):
                 source_index = self.__find_external_index(source_node_id)
-
+                # print(f"Source index: {source_index}")
                 # Local: since the agent owns the node, all its local vulnerabilities are visible to it
                 for vulnerability_index in range(local_vulnerabilities_count):
                     vulnerability_id = self.__index_to_local_vulnerabilityid(vulnerability_index)
@@ -665,7 +668,14 @@ class CyberBattleEnv(CyberBattleSpaceKind):
                 # Remote: Any other node discovered so far is a potential remote target
                 for target_node_id in self.__discovered_nodes:
                     target_index = self.__find_external_index(target_node_id)
-                    bitmask["remote_vulnerability"][source_index, target_index, :remote_vulnerabilities_count] = 1
+                    # print(f"Target index: {target_index}")
+
+                    for vulnerability_index in range(remote_vulnerabilities_count):
+                        vulnerability_id = self.__index_to_remote_vulnerabilityid(vulnerability_index)
+                        node_vulnerable = vulnerability_id in self.__environment.vulnerability_library or vulnerability_id in self.__environment.get_node(target_node_id).vulnerabilities
+
+                        if node_vulnerable:
+                            bitmask["remote_vulnerability"][source_index, target_index, :remote_vulnerabilities_count] = 1
 
                     # the agent may attempt to connect to any port
                     # and use any credential from its cache (though it's not guaranteed to succeed)
