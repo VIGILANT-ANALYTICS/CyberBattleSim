@@ -35,7 +35,7 @@ register(
     id="SimpleNetwork-v0",
     cyberbattle_env_identifiers=simple_network.ENV_IDENTIFIERS,
     entry_point="cyberbattle._env.cyberbattle_simplenetwork:SimpleNetwork",
-    kwargs={"defender_agent": None, "attacker_goal": AttackerGoal(own_atleast_percent=1.0), "defender_goal": DefenderGoal(eviction=True)},
+    kwargs={"maximum_node_count": 3,"defender_agent": None, "attacker_goal": AttackerGoal(own_atleast_percent=1.0), "defender_goal": DefenderGoal(eviction=True)},
     # max_episode_steps=2600,
 )
 

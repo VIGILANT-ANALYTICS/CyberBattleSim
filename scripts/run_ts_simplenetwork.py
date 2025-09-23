@@ -24,9 +24,6 @@ def main() -> int:
 
     env = cast(CyberBattleEnv, gym.make("SimpleNetwork-v0"))
 
-    # logging.info(env.action_space.sample())
-    # logging.info(env.observation_space.sample())
-
     for i_episode in range(1):
         observation, _ = env.reset()
         total_reward = 0
