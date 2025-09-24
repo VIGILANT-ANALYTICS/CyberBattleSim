@@ -692,44 +692,6 @@ class CyberBattleEnv(CyberBattleSpaceKind):
         self.__update_action_mask(bitmask)
         return bitmask
 
-    # def iter_valid_actions(bitmask: Dict[str, NDArray[np.int8]]) -> Generator[Dict[str, NDArray[np.int8]], Any, Any]:
-    #     """
-    #     Yields actions as dict[str, NDArray[np.int8]] to satisfy Pylance.
-    #     """
-    #     for key, mask in bitmask.items():
-    #         mask_arr: NDArray[np.int8] = np.asarray(mask, dtype=np.int8)
-    #         if not mask_arr.any():
-    #             continue
-
-    #         for idx in np.argwhere(mask_arr):
-    #             # ensure a python tuple of ints for indexing
-    #             idx_tuple = tuple(int(i) for i in idx)
-    #             action_array: NDArray[np.int8] = np.zeros_like(mask_arr, dtype=np.int8)
-    #             action_array[idx_tuple] = 1
-    #             yield {key: action_array}
-
-    # def iter_valid_action_indices(self, bitmask: ActionMask) -> Iterator[Tuple[str, Tuple[int, ...]]]:
-    #     """
-    #     Lightweight iterator: yields (key, index_tuple) for every allowed action.
-    #     Use build_action_from_index to construct the full Action when needed.
-    #     """
-    #     for key, mask in bitmask.items():
-    #         mask_arr = np.asarray(mask)
-    #         if not mask_arr.any():
-    #             continue
-    #         for idx in np.argwhere(mask_arr):
-    #             yield key, tuple(int(i) for i in idx)
-
-
-    # def build_action_from_index(self, bitmask: ActionMask, key: str, index: Tuple[int, ...]) -> Action:
-    #     """
-    #     Construct a full Action dict (same-format numpy arrays) from a (key, index).
-    #     Only the specified key is included in the returned Action dict.
-    #     """
-    #     mask_arr = np.asarray(bitmask[key])
-    #     action_array = np.zeros_like(mask_arr, dtype=np.int8)
-    #     action_array[index] = 1
-    #     return {key: action_array}
 
     def pretty_print_internal_action(self, action: Action) -> str:
         """Pretty print an action with internal node and vulnerability identifiers"""
