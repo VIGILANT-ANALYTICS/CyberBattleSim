@@ -8,8 +8,7 @@ import copy
 import logging
 import networkx
 from networkx import convert_matrix
-from typing import NamedTuple, Optional, Tuple, List, Dict, TypeVar, TypedDict, cast, Iterator, Any, Generator
-from numpy.typing import NDArray
+from typing import NamedTuple, Optional, Tuple, List, Dict, TypeVar, TypedDict, cast
 from gymnasium import spaces, Env
 from gymnasium.utils import seeding
 
