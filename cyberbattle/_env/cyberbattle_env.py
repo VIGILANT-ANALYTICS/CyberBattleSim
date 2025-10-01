@@ -967,6 +967,9 @@ class CyberBattleEnv(CyberBattleSpaceKind):
             )
         )
 
+    def is_done(self):
+        return self.__done
+
     def get_all_valid_actions(self):
         action_mask = self.compute_action_mask()
         results = []

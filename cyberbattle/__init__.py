@@ -39,6 +39,17 @@ register(
     # max_episode_steps=2600,
 )
 
+if "SimpleNetwork-v1" in registry:
+    del registry["SimpleNetwork-v1"]
+
+register(
+    id="SimpleNetwork-v1",
+    cyberbattle_env_identifiers=simple_network.ENV_IDENTIFIERS,
+    entry_point="cyberbattle._env.cyberbattle_simplenetwork_v1:SimpleNetworkV1",
+    kwargs={"maximum_node_count": 3,"defender_agent": None, "attacker_goal": AttackerGoal(own_atleast_percent=1.0), "defender_goal": DefenderGoal(eviction=True)},
+    # max_episode_steps=2600,
+)
+
 if "CyberBattleToyCtf-v0" in registry:
     del registry["CyberBattleToyCtf-v0"]
 
