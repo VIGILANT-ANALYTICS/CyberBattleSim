@@ -1462,8 +1462,8 @@ class CyberBattleEnv(CyberBattleSpaceKind):
                 self.__done = True
                 reward = self.__LOSING_REWARD
 
-            if reward < 100:
-                self.__done = True
+            # if reward < 100:
+                # self.__done = True
             # else:
             #     reward = max(0.0, reward)
 
